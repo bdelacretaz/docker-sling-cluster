@@ -17,16 +17,16 @@
 # I'm testing this on a mac with boot2docker, different environments might need tweaks. 
 
 # Single etcd server for now
-# TODO avoid hardcoded 192.168.59.103
 # Example set/get from any host which can access HOST_IP:
 #   curl -s -L http://$HOST_IP:4001/v2/stats/leader
 #   curl -XPUT -d value="This is foo at $(date)" http://$HOST_IP:4001/v2/keys/tmp/test
 #   curl http://$HOST_IP:4001/v2/keys/tmp/test
 etcd:
-  image: coreos/etcd:latest
-  command: -peer-addr 192.168.59.103:7001 -addr 192.168.59.103:4001
+  build: etcd
   environment:
-  - HOST_IP
+    HOST_IP:
+    ETCD_PORT: "4001"
+    PEER_PORT: "7001"
   ports:
   - "4001:4001"
   - "7001:7001"
@@ -39,7 +39,7 @@ etcd:
 haproxy:
   build: haproxy
   environment:
-  - HOST_IP
+    HOST_IP:
   links:
     - etcd:etcd
   ports:
