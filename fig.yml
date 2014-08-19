@@ -1,0 +1,47 @@
+# Experimental Sling/Oak cluster on Docker
+# Using http://www.fig.sh/
+#
+# To run this on docker:
+#
+#    fig build
+#    fig start
+#
+# Use fig scale to start more clients and
+# servers.
+#
+# Environment variables that have no value below
+# must be set before running fig, like
+#
+#   export HOST_IP=$(boot2docker ip  2>&1 | grep IP  | sed 's/.*: *//') ; echo "[$HOST_IP]"
+#
+# I'm testing this on a mac with boot2docker, different environments might need tweaks. 
+
+# Single etcd server for now
+# TODO avoid hardcoded 192.168.59.103
+# Example set/get from any host which can access HOST_IP:
+#   curl -s -L http://$HOST_IP:4001/v2/stats/leader
+#   curl -XPUT -d value="This is foo at $(date)" http://$HOST_IP:4001/v2/keys/tmp/test
+#   curl http://$HOST_IP:4001/v2/keys/tmp/test
+etcd:
+  image: coreos/etcd:latest
+  command: -peer-addr 192.168.59.103:7001 -addr 192.168.59.103:4001
+  environment:
+  - HOST_IP
+  ports:
+  - "4001:4001"
+  - "7001:7001"
+
+# HAproxy with dynamic backends driven by confd
+# HTTP backends can be added as follows (example from the host mac)
+#   curl -XPUT -d value="www.perdu.com:80" http://$HOST_IP:4001/v2/keys/http/backends/perdu
+# where "perdu" at the end of the URL must be a unique ID.
+# Remove those URLs with an HTTP DELETE. 
+haproxy:
+  build: haproxy
+  environment:
+  - HOST_IP
+  links:
+    - etcd:etcd
+  ports:
+  - "80:80"
+  - "81:81"
