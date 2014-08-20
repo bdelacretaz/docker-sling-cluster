@@ -145,6 +145,8 @@ bundle mvn:org.apache.sling/org.apache.sling.hc.core/1.1.0
 bundle mvn:org.apache.sling/org.apache.sling.junit.core/1.0.8
 bundle mvn:org.apache.sling/org.apache.sling.junit.healthcheck/1.0.6
 bundle mvn:org.apache.sling/org.apache.sling.hc.webconsole/1.1.0
+bundle mvn:org.apache.jackrabbit/jackrabbit-webdav/2.7.1
+bundle mvn:org.apache.sling/org.apache.sling.jcr.webdav/2.2.2
 
 # Oak-specific bundles
 bundle mvn:org.apache.jackrabbit/oak-core/1.0.0
