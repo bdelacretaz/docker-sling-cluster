@@ -9,6 +9,13 @@ echo Using Mongo server $MONGO
 REPO="-Dorg.ops4j.pax.url.mvn.repositories=http://repo1.maven.org/maven2@id=central,http://repository.apache.org/snapshots/@snapshots@id=apache-snapshots"
 echo "Maven repositories: $REPO"
 
+# Create Mongo config from environment variables
+mkdir -p /tmp/sling-configs
+cat > /tmp/sling-configs/org.apache.jackrabbit.oak.plugins.document.DocumentNodeStoreService.cfg << EOF
+mongouri=$MONGO
+db=sling
+EOF
+
 echo "Starting sling, warmup=$WARMUP"
 java \
   -Dmongo=$MONGO \
