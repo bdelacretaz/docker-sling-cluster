@@ -1,0 +1,158 @@
+# Set default values for our variables
+# Must set these three on command line
+defaults port 80
+defaults sling_home /tmp/SLING-HOME
+defaults mongo mongodb://MISSING:0
+defaults mongo_db sling
+defaults config NO_CONFIG_ID_YET
+
+# Set bootstrap classpath, mvn: protocol can be used
+classpath mvn:org.apache.felix/org.apache.felix.framework/4.4.0
+classpath mvn:org.osgi/org.osgi.compendium/4.2.0
+classpath mvn:org.slf4j/slf4j-api/1.7.6
+classpath mvn:org.slf4j/slf4j-simple/1.7.6
+classpath mvn:org.ops4j.pax.url/pax-url-aether/1.6.0
+classpath mvn:org.ops4j.pax.url/pax-url-commons/1.6.0
+
+# Except for the bootstrap launcher, crankstart jars are also provided via classpath
+classpath mvn:org.apache.sling/org.apache.sling.crankstart.core/0.0.1-SNAPSHOT
+classpath mvn:org.apache.sling/org.apache.sling.crankstart.api/0.0.1-SNAPSHOT
+
+# Set OSGi framework properties
+osgi.property org.osgi.service.http.port ${port}
+osgi.property sling.home ${sling_home}
+osgi.property org.osgi.framework.storage ${sling_home}/osgi.framework.storage
+osgi.property org.apache.sling.commons.log.level INFO
+# TODO logs should go to stdout
+osgi.property org.apache.sling.commons.log.file logs/error.log
+osgi.property org.apache.sling.commons.log.file.number 5
+osgi.property org.apache.sling.commons.log.file.size '.'yyyy-MM-dd
+osgi.property felix.startlevel.bundle 22
+osgi.property org.osgi.framework.startlevel.beginning 32
+
+# Once OSGi properties are set, start the framework
+start.framework
+
+# Load the Configuration Admin bundle and start it
+bundle mvn:org.apache.felix/org.apache.felix.configadmin/1.6.0
+start.all.bundles
+
+# Once Configuration Admin is loaded, we can set configurations
+config org.apache.sling.installer.provider.jcr.impl.JcrInstaller
+	sling.jcrinstall.search.path = /sling-cfg/${config}/apps:200
+	sling.jcrinstall.search.path = /sling-cfg/${config}/libs:100
+# Config-specific resource resolver paths may be unnecessary
+# if scripts are always provided as bundle resources
+#config org.apache.sling.jcr.resource.internal.JcrResourceResolverFactoryImpl
+#	resource.resolver.searchpath = /sling-cfg/${config}/apps
+#	resource.resolver.searchpath = /sling-cfg/${config}/libs
+config org.apache.jackrabbit.oak.plugins.document.DocumentNodeStoreService
+	mongouri = ${mongo}
+	db = ${mongo_db}
+
+# Install bundles
+# mvn: protocol can be used.
+bundle mvn:org.apache.felix/org.apache.felix.http.jetty/2.2.2
+bundle mvn:org.slf4j/slf4j-api/1.7.6
+bundle mvn:org.apache.sling/org.apache.sling.commons.log/4.0.0
+bundle mvn:org.apache.sling/org.apache.sling.commons.logservice/1.0.2
+bundle mvn:org.slf4j/jcl-over-slf4j/1.7.6
+bundle mvn:org.slf4j/log4j-over-slf4j/1.7.6
+bundle mvn:org.apache.sling/org.apache.sling.settings/1.3.0
+bundle mvn:org.apache.sling/org.apache.sling.fragment.xml/1.0.2
+bundle mvn:org.apache.sling/org.apache.sling.installer.core/3.5.0
+bundle mvn:org.apache.sling/org.apache.sling.installer.provider.file/1.0.2
+bundle mvn:org.apache.felix/org.apache.felix.eventadmin/1.3.2
+bundle mvn:commons-io/commons-io/1.4
+bundle mvn:commons-fileupload/commons-fileupload/1.3.1
+bundle mvn:commons-collections/commons-collections/3.2.1
+bundle mvn:commons-codec/commons-codec/1.6
+bundle mvn:commons-lang/commons-lang/2.5
+bundle mvn:org.apache.commons/commons-math/2.2
+bundle mvn:commons-pool/commons-pool/1.6
+bundle mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.concurrent/1.3.4_1
+bundle mvn:org.apache.sling/org.apache.sling.commons.osgi/2.2.0
+bundle mvn:org.apache.geronimo.bundles/commons-httpclient/3.1_1
+bundle mvn:org.apache.sling/org.apache.sling.commons.mime/2.1.4
+bundle mvn:org.apache.sling/org.apache.sling.commons.classloader/1.3.0
+bundle mvn:org.apache.sling/org.apache.sling.commons.scheduler/2.4.2
+bundle mvn:org.apache.sling/org.apache.sling.commons.threads/3.2.0
+bundle mvn:org.apache.sling/org.apache.sling.discovery.api/1.0.0
+bundle mvn:org.apache.sling/org.apache.sling.discovery.support/1.0.0
+bundle mvn:org.apache.sling/org.apache.sling.discovery.impl/1.0.4
+bundle mvn:org.apache.sling/org.apache.sling.event/3.3.6
+bundle mvn:org.apache.sling/org.apache.sling.api/2.7.0
+bundle mvn:org.apache.sling/org.apache.sling.serviceusermapper/1.0.0
+bundle mvn:org.apache.sling/org.apache.sling.resourceresolver/1.1.0
+bundle mvn:org.apache.sling/org.apache.sling.auth.core/1.1.6
+bundle mvn:org.apache.sling/org.apache.sling.engine/2.3.2
+bundle mvn:org.apache.sling/org.apache.sling.auth.form/1.0.4
+bundle mvn:org.apache.sling/org.apache.sling.adapter/2.1.0
+bundle mvn:org.apache.sling/org.apache.sling.servlets.resolver/2.3.2
+bundle mvn:org.apache.sling/org.apache.sling.servlets.get/2.1.8
+bundle mvn:org.apache.sling/org.apache.sling.servlets.post/2.3.4
+bundle mvn:org.apache.sling/org.apache.sling.jcr.contentloader/2.1.8
+bundle mvn:org.apache.sling/org.apache.sling.jcr.resource/2.3.6
+bundle mvn:org.apache.sling/org.apache.sling.jcr.classloader/3.2.0
+bundle mvn:org.apache.sling/org.apache.sling.bundleresource.impl/2.2.0
+bundle mvn:org.apache.sling/org.apache.sling.fsresource/1.1.2
+bundle mvn:org.apache.sling/org.apache.sling.launchpad.content/2.0.6
+bundle mvn:org.apache.sling/org.apache.sling.scripting.api/2.1.6
+bundle mvn:org.apache.sling/org.apache.sling.scripting.core/2.0.26
+bundle mvn:org.apache.sling/org.apache.sling.scripting.javascript/2.0.12
+bundle mvn:org.apache.sling/org.apache.sling.scripting.jsp/2.0.28
+bundle mvn:org.apache.sling/org.apache.sling.scripting.jsp.taglib/2.2.0
+bundle mvn:org.apache.felix/org.apache.felix.http.whiteboard/2.2.0
+bundle mvn:org.apache.sling/org.apache.sling.installer.console/1.0.0
+bundle mvn:org.apache.sling/org.apache.sling.installer.factory.configuration/1.0.12
+bundle mvn:org.apache.sling/org.apache.sling.installer.provider.jcr/3.1.6
+bundle mvn:org.apache.sling/org.apache.sling.extensions.webconsolebranding/1.0.0
+bundle mvn:org.apache.sling/org.apache.sling.extensions.webconsolesecurityprovider/1.0.0
+bundle mvn:org.apache.felix/org.apache.felix.inventory/1.0.4
+bundle mvn:org.apache.felix/org.apache.felix.webconsole/4.2.2
+bundle mvn:org.apache.geronimo.bundles/json/20090211_1
+bundle mvn:org.apache.felix/org.apache.felix.webconsole.plugins.ds/1.0.0
+bundle mvn:org.apache.felix/org.apache.felix.webconsole.plugins.packageadmin/1.0.0
+bundle mvn:org.apache.felix/org.apache.felix.webconsole.plugins.event/1.0.2
+bundle mvn:org.apache.felix/org.apache.felix.webconsole.plugins.memoryusage/1.0.4
+bundle mvn:org.apache.sling/org.apache.sling.commons.json/2.0.6
+bundle mvn:org.apache.felix/org.apache.felix.bundlerepository/1.6.4
+bundle mvn:org.apache.sling/org.apache.sling.extensions.threaddump/0.2.2
+bundle mvn:org.apache.sling/org.apache.sling.jcr.webconsole/1.0.0
+bundle mvn:org.apache.sling/org.apache.sling.extensions.explorer/1.0.2
+bundle mvn:org.apache.felix/org.apache.felix.scr/1.8.2
+bundle mvn:org.apache.felix/org.apache.felix.metatype/1.0.10
+bundle mvn:org.apache.tika/tika-core/1.2
+bundle mvn:org.apache.tika/tika-bundle/1.2
+bundle mvn:org.apache.sling/org.apache.sling.jcr.jcr-wrapper/2.0.0
+bundle mvn:org.apache.sling/org.apache.sling.jcr.api/2.2.0
+bundle mvn:org.apache.sling/org.apache.sling.jcr.base/2.2.2
+bundle mvn:org.apache.sling/org.apache.sling.jcr.registration/1.0.0
+bundle mvn:org.apache.jackrabbit/jackrabbit-api/2.7.5
+bundle mvn:org.apache.jackrabbit/jackrabbit-jcr-commons/2.7.5
+bundle mvn:org.apache.jackrabbit/jackrabbit-spi/2.7.1
+bundle mvn:org.apache.jackrabbit/jackrabbit-spi-commons/2.7.1
+bundle mvn:org.apache.jackrabbit/jackrabbit-jcr-rmi/2.7.1
+bundle mvn:com.google.guava/guava/15.0
+bundle mvn:org.apache.sling/org.apache.sling.launchpad.api/1.1.0
+bundle mvn:org.apache.sling/org.apache.sling.launchpad.karaf/0.1.1-SNAPSHOT
+bundle mvn:org.apache.sling/org.apache.sling.discovery.api/1.0.0
+bundle mvn:org.apache.sling/org.apache.sling.hc.core/1.1.0
+bundle mvn:org.apache.sling/org.apache.sling.junit.core/1.0.8
+bundle mvn:org.apache.sling/org.apache.sling.junit.healthcheck/1.0.6
+bundle mvn:org.apache.sling/org.apache.sling.hc.webconsole/1.1.0
+
+# Oak-specific bundles
+bundle mvn:org.apache.jackrabbit/oak-core/1.0.0
+bundle mvn:org.apache.jackrabbit/oak-blob/1.0.0
+bundle mvn:org.apache.jackrabbit/oak-commons/1.0.0
+bundle mvn:org.apache.jackrabbit/oak-mk/1.0.0
+bundle mvn:org.apache.jackrabbit/oak-mk-api/1.0.0
+bundle mvn:org.apache.jackrabbit/oak-mk-remote/1.0.0
+bundle mvn:org.apache.jackrabbit/oak-lucene/1.0.0
+bundle mvn:org.mongodb/mongo-java-driver/2.11.4
+bundle mvn:org.apache.sling/org.apache.sling.jcr.oak.server/0.0.2-SNAPSHOT
+
+# Now start bundles
+start.all.bundles
+log Sling will be available at http://localhost:${port}/system/console

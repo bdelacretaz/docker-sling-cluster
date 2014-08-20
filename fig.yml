@@ -33,3 +33,16 @@ haproxy:
   ports:
   - "80:80"
   - "81:81"
+
+mongo:
+  image: "mongo:2.6"
+  ports:
+  - "27017"
+  
+sling:
+  build: sling
+  ports:
+  - "80"
+  links:
+    - mongo:mongo
+    - etcd:etcd  
