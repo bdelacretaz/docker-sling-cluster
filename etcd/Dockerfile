@@ -1,4 +1,4 @@
 FROM coreos/etcd
 MAINTAINER bdelacretaz@apache.org
-ADD root /
+ADD fsroot /
 ENTRYPOINT /bin/bash /start.sh

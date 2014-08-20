@@ -27,6 +27,7 @@ haproxy:
   build: haproxy
   environment:
     HOST_IP:
+    CONFD_INTERVAL: "2"
   links:
     - etcd:etcd
   ports:
