@@ -24,3 +24,7 @@ java \
   $REPO \
   -jar /sling/org.apache.sling.crankstart.launcher.jar \
   /sling/crankstart.txt
+
+# Remove the sling id file (created during warmup) to make sure 
+# each instance gets a unique ID. 
+rm $(find /tmp/SLING-HOME -name sling.id.file)
