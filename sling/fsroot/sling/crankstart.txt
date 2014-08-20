@@ -5,6 +5,7 @@ defaults sling_home /tmp/SLING-HOME
 defaults mongo mongodb://MISSING:0
 defaults mongo_db sling
 defaults config NO_CONFIG_ID_YET
+defaults warmup false
 
 # Set bootstrap classpath, mvn: protocol can be used
 classpath mvn:org.apache.felix/org.apache.felix.framework/4.4.0
@@ -155,4 +156,10 @@ bundle mvn:org.apache.sling/org.apache.sling.jcr.oak.server/0.0.2-SNAPSHOT
 
 # Now start bundles
 start.all.bundles
+
+# If this is a warmup run, exit
+log warmup=${warmup}
+exit.iftrue ${warmup}
+
+# Otherwise keep running
 log Sling will be available at http://localhost:${port}/system/console

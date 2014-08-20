@@ -1,3 +1,5 @@
+WARMUP=$1
+
 ETCD=${ETCD_PORT_4001_TCP_ADDR}:${ETCD_PORT_4001_TCP_PORT}
 echo Using etcd server $ETCD
 
@@ -7,8 +9,10 @@ echo Using Mongo server $MONGO
 REPO="-Dorg.ops4j.pax.url.mvn.repositories=http://repo1.maven.org/maven2@id=central,http://repository.apache.org/snapshots/@snapshots@id=apache-snapshots"
 echo "Maven repositories: $REPO"
 
+echo "Starting sling, warmup=$WARMUP"
 java \
   -Dmongo=$MONGO \
+  -Dwarmup=$WARMUP \
   -Dorg.ops4j.pax.url.mvn.localRepository=./tmp/maven-repo \
   $REPO \
   -jar /sling/org.apache.sling.crankstart.launcher.jar \
