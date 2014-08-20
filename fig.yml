@@ -1,20 +1,7 @@
-# Experimental Sling/Oak cluster on Docker
-# Using http://www.fig.sh/
-#
-# To run this on docker:
-#
-#    fig build
-#    fig start
-#
-# Use fig scale to start more clients and
-# servers.
+# See http://www.fig.sh/ for how this works.
 #
 # Environment variables that have no value below
-# must be set before running fig, like
-#
-#   export HOST_IP=$(boot2docker ip  2>&1 | grep IP  | sed 's/.*: *//') ; echo "[$HOST_IP]"
-#
-# I'm testing this on a mac with boot2docker, different environments might need tweaks. 
+# must be set before running fig.
 
 # Single etcd server for now
 # Example set/get from any host which can access HOST_IP:
