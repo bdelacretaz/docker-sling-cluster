@@ -27,6 +27,16 @@ mongouri=$MONGO
 db=sling
 EOF
 
+# Create etcd announcer config
+MY_IP=$(grep $HOSTNAME /etc/hosts | cut -f1)
+cat > /tmp/sling-configs/ch.x42.sling.etcd.EtcdAnnouncer-1.cfg << EOF
+etcd.url=http://${ETCD}/v2/keys/http/backends/sling_${HOSTNAME}
+sling.host=${MY_IP}
+sling.port=80
+interval.seconds=10
+ttl.seconds=30
+EOF
+
 echo "Starting sling, warmup=$WARMUP"
 java \
   -Dmongo=$MONGO \

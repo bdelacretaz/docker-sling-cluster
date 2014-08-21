@@ -148,6 +148,9 @@ bundle mvn:org.apache.sling/org.apache.sling.hc.webconsole/1.1.0
 bundle mvn:org.apache.jackrabbit/jackrabbit-webdav/2.7.1
 bundle mvn:org.apache.sling/org.apache.sling.jcr.webdav/2.2.2
 
+# Docker cluster bundles
+bundle mvn:ch.x42.sling/ch.42.sling.etcd.announcer/0.9.9-SNAPSHOT
+
 # Oak-specific bundles
 bundle mvn:org.apache.jackrabbit/oak-core/1.0.0
 bundle mvn:org.apache.jackrabbit/oak-blob/1.0.0
