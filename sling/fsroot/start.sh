@@ -6,7 +6,18 @@ echo Using etcd server $ETCD
 MONGO=mongodb://${MONGO_PORT_27017_TCP_ADDR}:${MONGO_PORT_27017_TCP_PORT}
 echo Using Mongo server $MONGO
 
-REPO="-Dorg.ops4j.pax.url.mvn.repositories=http://repo1.maven.org/maven2@id=central,http://repository.apache.org/snapshots/@snapshots@id=apache-snapshots"
+# This can be used if you don’t need local snapshots
+# REPO="-Dorg.ops4j.pax.url.mvn.repositories=http://repo1.maven.org/maven2@id=central,http://repository.apache.org/snapshots/@snapshots@id=apache-snapshots"
+
+# Use this with a suitable host name or IP to point to the Maven repository
+# of the host running Docker, or mac host running boot2docker. That’s a faster
+# way of getting Maven artifacts, and includes snapshots built locally on that host.
+# You can run a simple HTTP server (like python -m SimpleHTTPServer) on your host’s
+# $HOME/.m2/repository to make it available on the below URL.
+REPO_HOST=docker-maven.ddns.net
+REPO_PORT=8000
+REPO=-Dorg.ops4j.pax.url.mvn.repositories=http://$REPO_HOST:$REPO_PORT/@snapshots@id=dockerHost
+
 echo "Maven repositories: $REPO"
 
 # Create Mongo config from environment variables

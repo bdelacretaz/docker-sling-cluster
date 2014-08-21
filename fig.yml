@@ -1,7 +1,7 @@
 # See http://www.fig.sh/ for how this works.
 #
 # Environment variables that have no value below
-# must be set before running fig.
+# must be set before running fig, see README.md.
 
 # Single etcd server for now
 # Example set/get from any host which can access HOST_IP:
