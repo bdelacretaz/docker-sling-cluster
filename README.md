@@ -11,7 +11,10 @@ To run this on docker with fig:
     fig build
     fig up
     
-Environment variables that have no value in the fig.yml file
+
+See comments in fig.yml for any special setup that might be required.
+
+In particular, environment variables that have no value in the fig.yml file
 must be set before running fig, like
 
     export HOST_IP=$(boot2docker ip  2>&1 | grep IP  | sed 's/.*: *//') ; echo "[$HOST_IP]"
