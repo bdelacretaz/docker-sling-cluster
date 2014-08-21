@@ -1,11 +1,11 @@
 docker-sling-cluster
 ====================
 
-Experimental Sling/Oak cluster running on Docker.
+Experimental Sling/Oak cluster running on Docker. My main goal so far is to create elastic Sling clusters in a simple way for running tests like Sling's integration tests and other more cluster-specific tests on them.
+ 
+This is using http://www.fig.sh/ to build and start the Docker images. The only real dependency on fig is the fig.yml definition file, which can easily be translated to Docker commands if you don't want to use fig.
 
-Using http://www.fig.sh/ to build and start the Docker images.
-
-To run this on docker:
+To run this on docker with fig:
 
     cd docker
     fig build
