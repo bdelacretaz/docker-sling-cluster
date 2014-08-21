@@ -1,7 +1,7 @@
 [template]
 src = "haproxy.conf.tmpl"
-dest = "/etc/haproxy/haproxy.cfg"
+dest = "/etc/haproxy/haproxy-from-confd.cfg"
 keys = [
   "/http/backends"
 ]
-reload_cmd = "/usr/sbin/service haproxy reload"
+reload_cmd = "/bin/bash /haproxy-update.sh"
