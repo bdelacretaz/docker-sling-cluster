@@ -36,6 +36,9 @@ haproxy:
 
 mongo:
   image: "mongo:2.6"
+  entrypoint: /usr/local/bin/mongod
+  # TODO getting "Insufficient free space for journal files" sometimes
+  command: --nojournal
   ports:
   - "27017"
   
@@ -51,7 +54,7 @@ sling:
 graphite:
   image: "nickstenning/graphite"
   ports:
-  - "82": "80"
-  - "2003": "2003"
-  - "2004": "2004"
+  - "82:80"
+  - "2003:2003"
+  - "2004:2004"
 

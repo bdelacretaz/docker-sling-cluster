@@ -31,6 +31,9 @@ osgi.property org.apache.sling.commons.log.file.size '.'yyyy-MM-dd
 osgi.property felix.startlevel.bundle 22
 osgi.property org.osgi.framework.startlevel.beginning 32
 
+# TODO required by metrics-core until https://github.com/dropwizard/metrics/issues/375 is fixed
+osgi.property org.osgi.framework.system.packages.extra sun.misc
+
 # file installer for configs that are built based on environment variables
 osgi.property sling.fileinstall.dir /tmp/sling-configs
 
