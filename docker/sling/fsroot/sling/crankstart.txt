@@ -162,6 +162,18 @@ bundle mvn:org.apache.jackrabbit/oak-lucene/1.0.0
 bundle mvn:org.mongodb/mongo-java-driver/2.11.4
 bundle mvn:org.apache.sling/org.apache.sling.jcr.oak.server/0.0.2-SNAPSHOT
 
+# Metrics bundles
+bundle mvn:com.fasterxml.jackson.core/jackson-annotations/2.2.2
+bundle mvn:com.fasterxml.jackson.core/jackson-core/2.2.2
+bundle mvn:com.fasterxml.jackson.core/jackson-databind/2.2.2
+bundle mvn:com.codahale.metrics/metrics-core/3.0.1
+bundle mvn:com.codahale.metrics/metrics-graphite/3.0.1
+bundle mvn:com.codahale.metrics/metrics-healthchecks/3.0.1
+bundle mvn:com.codahale.metrics/metrics-json/3.0.1
+bundle mvn:com.codahale.metrics/metrics-jvm/3.0.1
+bundle mvn:com.codahale.metrics/metrics-servlets/3.0.1
+bundle mvn:com.github.digital-wonderland.sling-metrics/sling-metrics-bundle/0.1.0
+
 # Now start bundles
 start.all.bundles
 

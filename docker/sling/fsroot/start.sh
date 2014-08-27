@@ -37,6 +37,14 @@ interval.seconds=10
 ttl.seconds=30
 EOF
 
+# Create metrics config
+cat > /tmp/sling-configs/com.github.digital_wonderland.sling_metrics.reporter.GraphiteReporter.cfg << EOF
+graphiteReporter.enabled = true
+graphiteReporter.hostname = GRAPHITE_PORT_2003_TCP_ADDR
+graphiteReporter.port = GRAPHITE_PORT_2003_TCP_PORT
+graphiteReporter.prefix = sling
+EOF
+
 echo "Starting sling, warmup=$WARMUP"
 java \
   -Dmongo=$MONGO \

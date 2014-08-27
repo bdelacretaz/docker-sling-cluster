@@ -46,3 +46,12 @@ sling:
   links:
     - mongo:mongo
     - etcd:etcd  
+    - graphite:graphite
+
+graphite:
+  image: "nickstenning/graphite"
+  ports:
+  - "82": "80"
+  - "2003": "2003"
+  - "2004": "2004"
+
