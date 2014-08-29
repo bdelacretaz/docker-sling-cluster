@@ -55,6 +55,7 @@ graphite:
   image: "nickstenning/graphite"
   ports:
   - "82:80"
-  - "2003:2003"
+  - "2003:2003/udp"
+  - "2003:2003/tcp"
   - "2004:2004"
 
