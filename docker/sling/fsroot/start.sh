@@ -42,7 +42,7 @@ cat > /tmp/sling-configs/com.github.digital_wonderland.sling_metrics.reporter.Gr
 graphiteReporter.enabled = true
 graphiteReporter.hostname = ${GRAPHITE_PORT_2003_TCP_ADDR}
 graphiteReporter.port = ${GRAPHITE_PORT_2003_TCP_PORT}
-graphiteReporter.prefix = sling
+graphiteReporter.prefix = slingdocker
 EOF
 
 echo "Starting sling, warmup=$WARMUP"
