@@ -13,6 +13,8 @@ To run this on docker with fig:
     fig up
     
 
+And you can then use `fig scale sling=N` to start N Sling instances which announce themselves to the HAProxy front-end via etcd.
+
 environment setup
 -----------------
 I'm testing this on a mac with boot2docker, different environments might need tweaks.
