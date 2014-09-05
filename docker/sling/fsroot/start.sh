@@ -51,7 +51,7 @@ java \
   -Dwarmup=$WARMUP \
   -Dorg.ops4j.pax.url.mvn.localRepository=./tmp/maven-repo \
   $REPO \
-  -jar /sling/org.apache.sling.crankstart.launcher.jar \
+  -jar /sling/org.apache.sling.crankstart.launcher-1.0.0.jar \
   /sling/crankstart.txt
 
 # Remove the sling id file (created during warmup) to make sure 

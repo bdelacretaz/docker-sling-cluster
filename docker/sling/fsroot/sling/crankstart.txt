@@ -16,8 +16,8 @@ classpath mvn:org.ops4j.pax.url/pax-url-aether/1.6.0
 classpath mvn:org.ops4j.pax.url/pax-url-commons/1.6.0
 
 # Except for the bootstrap launcher, crankstart jars are also provided via classpath
-classpath mvn:org.apache.sling/org.apache.sling.crankstart.core/0.0.1-SNAPSHOT
-classpath mvn:org.apache.sling/org.apache.sling.crankstart.api/0.0.1-SNAPSHOT
+classpath mvn:org.apache.sling/org.apache.sling.crankstart.core/1.0.0
+classpath mvn:org.apache.sling/org.apache.sling.crankstart.api/1.0.0
 
 # Set OSGi framework properties
 osgi.property org.osgi.service.http.port ${port}
