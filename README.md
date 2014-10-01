@@ -15,6 +15,8 @@ To run this on docker with fig:
 
 And you can then use `fig scale sling=N` to start N Sling instances which announce themselves to the HAProxy front-end via etcd.
 
+HAProxy make the Sling instances available on port 80, and its own status page on port 81.
+
 environment setup
 -----------------
 I'm testing this on a mac with boot2docker, different environments might need tweaks.
