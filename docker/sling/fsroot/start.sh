@@ -15,14 +15,6 @@ echo Using Mongo server $MONGO
 # You can run a simple HTTP server (like python -m SimpleHTTPServer) on your host’s
 # $HOME/.m2/repository to make it available on the below URL.
 #
-# Here I'm using docker-maven.ddns.net mapped to 10.0.2.2 which is my mac's address
-# as seen from the Docker containers.
-REPO_HOST=docker-maven.ddns.net
-REPO_PORT=8000
-REPO=-Dorg.ops4j.pax.url.mvn.repositories=http://$REPO_HOST:$REPO_PORT/@snapshots@id=dockerHost
-
-echo "Maven repositories: $REPO"
-
 # Create Mongo config from environment variables
 mkdir -p /tmp/sling-configs
 cat > /tmp/sling-configs/org.apache.jackrabbit.oak.plugins.document.DocumentNodeStoreService.cfg << EOF
@@ -52,8 +44,6 @@ echo "Starting sling, warmup=$WARMUP"
 java \
   -Dmongo=$MONGO \
   -Dwarmup=$WARMUP \
-  -Dorg.ops4j.pax.url.mvn.localRepository=./tmp/maven-repo \
-  $REPO \
   -jar /sling/org.apache.sling.crankstart.launcher-1.0.0.jar \
   /sling/crankstart.txt
 

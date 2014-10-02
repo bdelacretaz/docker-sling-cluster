@@ -2,7 +2,6 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.synced_folder "bundles/", "/dsc/bundles"
   config.vm.synced_folder "docker/", "/dsc/docker"
 end
 
