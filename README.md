@@ -3,8 +3,10 @@ docker-sling-cluster
 
 Experimental Sling/Oak cluster running on Docker. My main goal so far is to create elastic Sling clusters in a simple way, as
 a playground for making Sling more operations-friendly.
+
+See also my http://www.slideshare.net/bdelacretaz/modern-operations-with-apache-sling-2014-adaptto-version slides for additional information.
  
-This is using http://www.fig.sh/ to build and start the Docker images. The only real dependency on fig is the fig.yml 
+This is using http://www.fig.sh/ to build and start the Docker images. The only real dependency on fig is the `fig.yml` 
 definition file, which can easily be translated to Docker commands if you don't want to use fig.
 
 A Vagrant box is provided which should keep setup to the minimum, so you can just get https://www.vagrantup.com/ 
@@ -33,7 +35,7 @@ This should display something like (here with 3 Sling instances up):
     "Sling Name = Instance d9a10ec2-2d6d-4a22-97ad-42c33c6242da",
     "Sling Name = Instance fcba04db-1a00-4c0d-99bb-55d7790ea9c6",
     
-If using the Vagrant box HOST_IP is the host that's running Vagrant, and PORT is 9080 as exposed in the Vagrantfile.
+If using the Vagrant box `HOST_IP` is the host that's running Vagrant, and `PORT` is 9080 as exposed in the Vagrantfile.
 
 The following ports (81, 82 or 9081, 9082) expose the HAProxy and Graphite status pages, respectively. Graphite is not getting
 stats from the Sling instances as I write this, for some reason.
