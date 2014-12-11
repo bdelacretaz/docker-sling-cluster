@@ -35,6 +35,8 @@ This should display something like (here with 3 Sling instances up):
     "Sling Name = Instance d9a10ec2-2d6d-4a22-97ad-42c33c6242da",
     "Sling Name = Instance fcba04db-1a00-4c0d-99bb-55d7790ea9c6",
     
+Which shows that you are hitting 3 different Sling instances, each with their own instance ID.
+
 If using the Vagrant box `HOST_IP` is the host that's running Vagrant, and `PORT` is 9080 as exposed in the Vagrantfile.
 
 The following ports (81, 82 or 9081, 9082) expose the HAProxy and Graphite status pages, respectively. Graphite is not getting
