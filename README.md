@@ -1,6 +1,8 @@
 docker-sling-cluster
 ====================
 
+_Note that I have not touched this prototype since October 2014, it might need some adjustments to run in a recent Docker environment. https://docs.docker.com/compose/ now replaces Fig, for example_.
+
 Experimental Sling/Oak cluster running on Docker. My main goal so far is to create elastic Sling clusters in a simple way, as
 a playground for making Sling more operations-friendly.
 
