@@ -3,16 +3,16 @@ MAINTAINER bdelacretaz@apache.org
 
 RUN yum clean all
 RUN yum -y update
-RUN yum install -y java-1.7.0-openjdk-devel.x86_64 tar subversion
+RUN yum install -y java-1.7.0-openjdk-devel.x86_64 tar subversion which
 
 ADD fsroot /
 
 # Install Maven
-RUN mkdir -p /lib/maven
+RUN ["mkdir","-p","/lib/maven"]
 WORKDIR /lib/maven
-RUN curl http://mirror.switch.ch/mirror/apache/dist/maven/maven-3/3.2.3/binaries/apache-maven-3.2.3-bin.tar.gz | tar zxvf -
-ENV PATH $PATH:/lib/maven/apache-maven-3.2.3/bin
-ENV JAVA_HOME /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.65.x86_64
+RUN curl http://mirror.switch.ch/mirror/apache/dist/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz | tar zxvf -
+ENV PATH $PATH:/lib/maven/apache-maven-3.3.3/bin
+RUN export JAVA_HOME=`ls -d /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.*`
 
 # Build any SNAPSHOTs required by our Crankstart file 
 # (at a specific svn revision, to be deterministic)
@@ -38,7 +38,7 @@ RUN mvn clean install
 
 # Create the Sling state during Docker image build
 # (TODO remove Sling id file?)
-RUN /bin/bash /start.sh true
+RUN ["/bin/bash","/start.sh","true"]
 
 # Run Sling from the state created during image build
-CMD /bin/bash /start.sh false
+CMD ["/bin/bash","/start.sh","false"]

@@ -1,4 +1,4 @@
-FROM dockerfile/haproxy
+FROM haproxy
 MAINTAINER bdelacretaz@apache.org
 ADD fsroot /
 
